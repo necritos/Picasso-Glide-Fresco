@@ -7,6 +7,7 @@ import android.widget.ImageView;
 import com.squareup.picasso.Picasso;
 
 import pe.android.tercerareunion.R;
+import pe.android.tercerareunion.utils.BlurTransformation;
 import pe.android.tercerareunion.utils.CircleTransform;
 import pe.android.tercerareunion.utils.RoundedCornersTransformation;
 
@@ -44,16 +45,15 @@ public class TransformActivity extends BaseActivity {
                         RoundedCornersTransformation.CornerType.DIAGONAL_FROM_TOP_LEFT))
                 .transform(new RoundedCornersTransformation(120, 0,
                         RoundedCornersTransformation.CornerType.DIAGONAL_FROM_TOP_RIGHT))
+                .rotate(45f)
                 .into(image3);
 
         ImageView image4 = (ImageView)findViewById(R.id.iv_four);
         Picasso.with(this)
                 .load("http://cdn2.larepublica.pe/sites/default/files/styles/img_620x369/public/imagen/2015/08/18/andr-Noticia-399494.jpg")
                 .placeholder(R.drawable.placeholder)
-                .transform(new RoundedCornersTransformation(100, 0,
-                        RoundedCornersTransformation.CornerType.OTHER_TOP_RIGHT))
-                .transform(new RoundedCornersTransformation(50, 0,
-                        RoundedCornersTransformation.CornerType.OTHER_BOTTOM_RIGHT))
+                .transform(new BlurTransformation(this))
+
                 .into(image4);
     }
 
