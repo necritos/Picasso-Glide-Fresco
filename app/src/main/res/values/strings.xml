@@ -1,4 +1,7 @@
 <resources>
     <string name="app_name">Tercerareunion</string>
     <string name="action_settings">Settings</string>
+    <string name="cache">Cache</string>
+    <string name="transform">Transformacion</string>
+    <string name="list">Lista</string>
 </resources>
