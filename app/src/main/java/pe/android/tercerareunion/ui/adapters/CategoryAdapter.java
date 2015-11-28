@@ -1,16 +1,15 @@
 package pe.android.tercerareunion.ui.adapters;
 
 import android.content.Context;
+import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
-
+import com.facebook.common.util.UriUtil;
+import com.facebook.drawee.view.SimpleDraweeView;
 
 import java.util.List;
 
@@ -40,13 +39,18 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
 
         holder.tvName.setText(categoryEntity.getName());
         String url= categoryEntity.getImage();
-        Glide.with(context)
-                .load(url)
-                .diskCacheStrategy(DiskCacheStrategy.ALL)
-                .placeholder(R.drawable.placeholder)
-                .error(R.drawable.error)
-                .centerCrop()
-                .into(holder.ivPreview);
+        if(!url.isEmpty()){
+            Uri uri = Uri.parse(url);
+            holder.ivPreview.setImageURI(uri);
+        }else {
+            Uri uri = new Uri.Builder()
+                    .scheme(UriUtil.LOCAL_RESOURCE_SCHEME) // "res"
+                    .path(String.valueOf(R.drawable.error))
+                    .build();
+
+            holder.ivPreview.setImageURI(uri);
+        }
+
 
 
 
@@ -65,14 +69,14 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
 
-        ImageView ivPreview;
+        SimpleDraweeView ivPreview;
         TextView tvName;
 
 
         public ViewHolder(View view) {
             super(view);
 
-            ivPreview = (ImageView)view.findViewById(R.id.iv_preview);
+            ivPreview = (SimpleDraweeView)view.findViewById(R.id.iv_preview);
             tvName = (TextView)view.findViewById(R.id.tv_name);
 
         }

@@ -9,6 +9,7 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    xmlns:fresco="http://schemas.android.com/apk/res-auto"
     tools:showIn="@layout/activity_transform">
 
     <ScrollView
@@ -24,29 +25,33 @@
             android:orientation="vertical">
 
 
-            <ImageView
+            <com.facebook.drawee.view.SimpleDraweeView
                 android:layout_width="match_parent"
                 android:layout_height="180dp"
-                android:src="@drawable/placeholder"
-                android:drawingCacheQuality="low"
+                fresco:placeholderImage="@drawable/placeholder"
+                fresco:failureImage="@drawable/error"
+                fresco:retryImageScaleType="centerCrop"
                 android:id="@+id/iv_one" />
 
-            <ImageView
-                android:layout_width="180dp"
+            <com.facebook.drawee.view.SimpleDraweeView
+                android:layout_width="match_parent"
                 android:layout_height="180dp"
-                android:src="@drawable/placeholder"
+                fresco:placeholderImage="@drawable/placeholder"
+                fresco:failureImage="@drawable/error"
                 android:id="@+id/iv_two" />
 
-            <ImageView
+            <com.facebook.drawee.view.SimpleDraweeView
                 android:layout_width="match_parent"
                 android:layout_height="180dp"
-                android:src="@drawable/placeholder"
+                fresco:placeholderImage="@drawable/placeholder"
+                fresco:failureImage="@drawable/error"
                 android:id="@+id/iv_three" />
 
-            <ImageView
+            <com.facebook.drawee.view.SimpleDraweeView
                 android:layout_width="match_parent"
                 android:layout_height="180dp"
-                android:src="@drawable/placeholder"
+                fresco:placeholderImage="@drawable/placeholder"
+                fresco:failureImage="@drawable/error"
                 android:id="@+id/iv_four" />
         </LinearLayout>
     </ScrollView>

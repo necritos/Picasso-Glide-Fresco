@@ -1,12 +1,12 @@
 package pe.android.tercerareunion.ui.activities;
 
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.widget.ImageView;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.Priority;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.facebook.drawee.backends.pipeline.Fresco;
+import com.facebook.drawee.view.SimpleDraweeView;
+import com.facebook.imagepipeline.core.ImagePipeline;
 
 import pe.android.tercerareunion.R;
 
@@ -21,35 +21,32 @@ public class CacheActivity extends BaseActivity {
         setContentView(R.layout.activity_transform);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        //imagePipeline.clearMemoryCaches();
+        //imagePipeline.clearDiskCaches();
+        //imagePipeline.clearCaches();
 
-        ImageView image1 = (ImageView)findViewById(R.id.iv_one);
-        Glide.with(this)
-                .load("http://cdn2.larepublica.pe/sites/default/files/styles/img_620x369/public/imagen/2015/08/18/andr-Noticia-399494.jpg")
-                .placeholder(R.drawable.placeholder)
-                .priority(Priority.LOW)
-                .into(image1);
+        SimpleDraweeView image1 = (SimpleDraweeView)findViewById(R.id.iv_one);
+        Uri uri = Uri.parse("http://cdn2.larepublica.pe/sites/default/files/styles/img_620x369/public/imagen/2015/08/18/andr-Noticia-399494.jpg");
+        ImagePipeline imagePipeline = Fresco.getImagePipeline();
+        boolean inMemoryCache = imagePipeline.isInBitmapMemoryCache(uri);
+        if(inMemoryCache){
+            image1.setImageURI(uri);
+        }
 
-        ImageView image2 = (ImageView) findViewById(R.id.iv_two);
-        Glide.with(this)
-                .load("https://media.giphy.com/media/GW2GWfbcCNRzq/giphy.gif")
-                .asGif()
-                .crossFade()
-                .placeholder(R.drawable.placeholder)
-                .into(image2);
 
-        ImageView image3 = (ImageView) findViewById(R.id.iv_three);
-        Glide.with(this)
-                .load("http://pcworld.pe/wp-content/uploads/2013/07/android_jelly_bean_louis_gray_1_610x45-100005501-large.jpg")
-                .diskCacheStrategy( DiskCacheStrategy.NONE)
-                .skipMemoryCache( true )
-                .placeholder(R.drawable.placeholder)
-                .into(image3);
 
-        ImageView image4 = (ImageView)findViewById(R.id.iv_four);
-        Glide.with(this)
-                .load("http://pcworld.pe/wp-content/uploads/2013/07/android_jelly_bean_louis_gray_1_610x45-100005501-large.jpg")
-                .placeholder(R.drawable.placeholder)
-                .diskCacheStrategy(DiskCacheStrategy.SOURCE)
-                .into(image4);
+
+
+        SimpleDraweeView image2 = (SimpleDraweeView) findViewById(R.id.iv_two);
+
+        Uri uri2 = Uri.parse("http://pcworld.pe/wp-content/uploads/2013/07/android_jelly_bean_louis_gray_1_610x45-100005501-large.jpg");
+        imagePipeline.evictFromMemoryCache(uri2);
+        imagePipeline.evictFromDiskCache(uri2);
+        image2.setImageURI(uri);
+
+
+
+
+
     }
 }

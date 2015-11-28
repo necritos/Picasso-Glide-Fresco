@@ -6,6 +6,8 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 
+import com.facebook.drawee.backends.pipeline.Fresco;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,7 +33,7 @@ public class MainActivity extends BaseActivity {
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
+        Fresco.initialize(this);
         rvListView = (RecyclerView) findViewById(R.id.rv_list);
         rvListView.setHasFixedSize(true);
 
