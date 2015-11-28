@@ -8,7 +8,9 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.squareup.picasso.Picasso;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+
 
 import java.util.List;
 
@@ -38,18 +40,13 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
 
         holder.tvName.setText(categoryEntity.getName());
         String url= categoryEntity.getImage();
-        if (url.isEmpty()){
-            Picasso.with(context)
-                    .load(R.drawable.error)
-                    .placeholder(R.drawable.placeholder)
-                    .into(holder.ivPreview);
-        }else {
-            Picasso.with(context)
-                    .load(url)
-                    .error(R.drawable.error)
-                    .placeholder(R.drawable.placeholder)
-                    .into(holder.ivPreview);
-        }
+        Glide.with(context)
+                .load(url)
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .placeholder(R.drawable.placeholder)
+                .error(R.drawable.error)
+                .centerCrop()
+                .into(holder.ivPreview);
 
 
 

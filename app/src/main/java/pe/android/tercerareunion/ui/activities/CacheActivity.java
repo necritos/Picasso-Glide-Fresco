@@ -4,9 +4,9 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.widget.ImageView;
 
-import com.squareup.picasso.MemoryPolicy;
-import com.squareup.picasso.NetworkPolicy;
-import com.squareup.picasso.Picasso;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.Priority;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 
 import pe.android.tercerareunion.R;
 
@@ -21,35 +21,35 @@ public class CacheActivity extends BaseActivity {
         setContentView(R.layout.activity_transform);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        Picasso.with(this)
-                .setIndicatorsEnabled(true);
 
         ImageView image1 = (ImageView)findViewById(R.id.iv_one);
-        Picasso.with(this)
+        Glide.with(this)
                 .load("http://cdn2.larepublica.pe/sites/default/files/styles/img_620x369/public/imagen/2015/08/18/andr-Noticia-399494.jpg")
                 .placeholder(R.drawable.placeholder)
-                .memoryPolicy(MemoryPolicy.NO_CACHE)
+                .priority(Priority.LOW)
                 .into(image1);
 
         ImageView image2 = (ImageView) findViewById(R.id.iv_two);
-        Picasso.with(this)
-                .load("http://cde.peru.com/ima/0/0/9/9/3/993570/611x458/android.jpg")
+        Glide.with(this)
+                .load("https://media.giphy.com/media/GW2GWfbcCNRzq/giphy.gif")
+                .asGif()
+                .crossFade()
                 .placeholder(R.drawable.placeholder)
-                .memoryPolicy(MemoryPolicy.NO_CACHE, MemoryPolicy.NO_STORE)
-                .networkPolicy(NetworkPolicy.NO_CACHE, NetworkPolicy.NO_STORE)
                 .into(image2);
 
-        ImageView image3 = (ImageView)findViewById(R.id.iv_three);
-        Picasso.with(this)
+        ImageView image3 = (ImageView) findViewById(R.id.iv_three);
+        Glide.with(this)
                 .load("http://pcworld.pe/wp-content/uploads/2013/07/android_jelly_bean_louis_gray_1_610x45-100005501-large.jpg")
+                .diskCacheStrategy( DiskCacheStrategy.NONE)
+                .skipMemoryCache( true )
                 .placeholder(R.drawable.placeholder)
                 .into(image3);
 
         ImageView image4 = (ImageView)findViewById(R.id.iv_four);
-        Picasso.with(this)
+        Glide.with(this)
                 .load("http://pcworld.pe/wp-content/uploads/2013/07/android_jelly_bean_louis_gray_1_610x45-100005501-large.jpg")
                 .placeholder(R.drawable.placeholder)
-                .networkPolicy(NetworkPolicy.OFFLINE)
+                .diskCacheStrategy(DiskCacheStrategy.SOURCE)
                 .into(image4);
     }
 }
